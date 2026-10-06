@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block contenido %}
+<section class="card">
+  <h2>Reservas</h2>
+  {% if puede_crear %}<p><a class="btn" href="{% url 'crear' %}">Nueva solicitud</a></p>{% endif %}
+  {% if registros %}
+  <table>
+    <tr><th>Nombre</th><th>Hora</th><th>Estado</th><th>Motivo</th>{% if es_admin %}<th></th>{% endif %}</tr>
+    {% for r in registros %}
+    <tr>
+      <td>{{ r.nombre }}</td>
+      <td>{{ r.hora_solicitada }}:00</td>
+      <td><span class="estado {% if r.estado == 'Aceptado' %}aceptado{% else %}rechazado{% endif %}">{{ r.estado }}</span></td>
+      <td>{{ r.motivo }}</td>
+      {% if es_admin %}
+      <td class="acciones"><a href="{% url 'editar' r.pk %}">Editar</a><a href="{% url 'eliminar' r.pk %}">Eliminar</a></td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}<p>Todav&iacute;a no hay reservas registradas.</p>{% endif %}
+</section>
+{% endblock %}

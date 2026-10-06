@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block titulo %}Reserva de horas{% endblock %} &middot; Barber&iacute;a</title>
+<style>
+  :root { --carbon:#201a17; --soft:#33291f; --cream:#f4ede2; --card:#fffaf2;
+          --brass:#a9702f; --brass-d:#7f5321; --line:#ddd0bb;
+          --ok:#3e6b47; --ok-bg:#e7f0e5; --no:#a13a2f; --no-bg:#f7e6e0; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--cream); color:var(--carbon);
+         font-family:'Segoe UI',Helvetica,Arial,sans-serif; line-height:1.5; }
+  header { background:var(--carbon); color:var(--cream); padding:22px 24px;
+           border-bottom:4px solid var(--brass); display:flex;
+           justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+  header h1 { margin:0; font:400 24px Georgia,serif; }
+  header small { color:#cabfae; }
+  header a { color:var(--cream); }
+  main { max-width:760px; margin:0 auto; padding:28px 24px 60px; }
+  .card { background:var(--card); border:1px solid var(--line); padding:24px; margin-bottom:24px; }
+  h2 { font-size:13px; letter-spacing:.08em; text-transform:uppercase;
+       color:var(--brass-d); margin:0 0 16px; }
+  label { display:block; font-size:13px; color:var(--soft); margin:0 0 6px; }
+  .field { margin-bottom:16px; }
+  input, select { width:100%; padding:10px 12px; font-size:15px;
+                  border:1px solid var(--line); background:#fff; }
+  .btn, button { display:inline-block; padding:10px 18px; background:var(--carbon);
+                 color:var(--cream); border:none; font-size:14px; cursor:pointer;
+                 text-decoration:none; }
+  .btn:hover, button:hover { background:var(--brass-d); }
+  .btn.sec { background:transparent; color:var(--carbon); border:1px solid var(--line); }
+  .msg { padding:12px 16px; margin-bottom:16px; border-left:4px solid var(--brass); background:var(--card); }
+  .msg.error { border-color:var(--no); background:var(--no-bg); }
+  .msg.success { border-color:var(--ok); background:var(--ok-bg); }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th { text-align:left; font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+       padding:0 10px 10px; border-bottom:1px solid var(--line); }
+  td { padding:12px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .estado { padding:2px 9px; font-size:12px; font-weight:600; }
+  .estado.aceptado { background:var(--ok-bg); color:var(--ok); }
+  .estado.rechazado { background:var(--no-bg); color:var(--no); }
+  .acciones a { margin-right:10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Reserva de horas</h1>
+  {% if user.is_authenticated %}
+  <small>{{ user.username }} &middot; <a href="{% url 'logout' %}">Salir</a></small>
+  {% endif %}
+</header>
+<main>
+  {% for m in messages %}<div class="msg {{ m.tags }}">{{ m }}</div>{% endfor %}
+  {% block contenido %}{% endblock %}
+</main>
+</body>
+</html>

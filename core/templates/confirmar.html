@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block contenido %}
+<section class="card">
+  <h2>Eliminar reserva</h2>
+  <p>&iquest;Eliminar la reserva de <strong>{{ registro.nombre }}</strong> a las {{ registro.hora_solicitada }}:00? El registro queda oculto, no se borra.</p>
+  <form method="post">{% csrf_token %}
+    <button type="submit">S&iacute;, eliminar</button>
+    <a class="btn sec" href="{% url 'lista' %}">Cancelar</a>
+  </form>
+</section>
+{% endblock %}

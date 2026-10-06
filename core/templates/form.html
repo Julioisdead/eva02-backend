@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block contenido %}
+<section class="card">
+  <h2>{{ accion }} reserva</h2>
+  {% if error %}<div class="msg error">{{ error }}</div>{% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="field"><label for="nombre">Nombre del cliente</label>
+      <input type="text" id="nombre" name="nombre" value="{{ registro.nombre }}" required></div>
+    <div class="field"><label for="hora_solicitada">&iquest;A qu&eacute; hora quiere el corte?</label>
+      <select id="hora_solicitada" name="hora_solicitada" required>
+        {% for h in horas %}<option value="{{ h }}" {% if registro.hora_solicitada == h %}selected{% endif %}>{{ h }}:00</option>{% endfor %}
+      </select></div>
+    <div class="field"><label for="cupos_disponibles">Cupos disponibles en ese bloque</label>
+      <input type="number" id="cupos_disponibles" name="cupos_disponibles" value="{{ registro.cupos_disponibles }}" required></div>
+    <button type="submit">{{ accion }}</button>
+    <a class="btn sec" href="{% url 'lista' %}">Cancelar</a>
+  </form>
+</section>
+{% endblock %}
